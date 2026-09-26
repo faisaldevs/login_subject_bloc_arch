@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:login_subject_demo_bloc_arch/core/error/exceptions.dart';
+import 'package:login_subject_demo_bloc_arch/core/network/dio_exception_mapper.dart';
 import 'package:login_subject_demo_bloc_arch/features/auth/data/datasources/remote/api/auth_api_service.dart';
 import 'package:login_subject_demo_bloc_arch/features/auth/data/models/login_response_model.dart';
 import 'package:login_subject_demo_bloc_arch/features/auth/data/models/user_response_model.dart';
@@ -33,11 +34,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         statusCode: res.code,
       );
     } on DioException catch (e) {
-      final msg = e.response?.data is Map ? e.response?.data['message'] : null;
-      throw ServerException(
-        message: msg ?? e.message ?? 'Network error',
-        statusCode: e.response?.statusCode,
-      );
+      throw e.toServerException();
     }
   }
 
@@ -54,11 +51,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         statusCode: res.code,
       );
     } on DioException catch (e) {
-      final msg = e.response?.data is Map ? e.response?.data['message'] : null;
-      throw ServerException(
-        message: msg ?? e.message ?? 'Network error',
-        statusCode: e.response?.statusCode,
-      );
+      throw e.toServerException();
     }
   }
 }

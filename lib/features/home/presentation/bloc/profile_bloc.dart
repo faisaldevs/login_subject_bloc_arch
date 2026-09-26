@@ -10,6 +10,7 @@ part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
+  
   ProfileBloc({required this._getProfile}) : super(const ProfileState()) {
     on<ProfileRequested>(_onRequested, transformer: droppable());
   }

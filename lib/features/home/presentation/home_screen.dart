@@ -14,13 +14,13 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => sl<ProfileBloc>()..add(const ProfileRequested()),
-      child: const _HomeView(),
+      child: const HomeView(),
     );
   }
 }
 
-class _HomeView extends StatelessWidget {
-  const _HomeView();
+class HomeView extends StatelessWidget {
+  const HomeView({super.key});
 
   Future<void> _refresh(BuildContext context) async {
     final bloc = context.read<ProfileBloc>()..add(const ProfileRequested());
@@ -32,6 +32,11 @@ class _HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Home')),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => context.push(AppRoutes.subject),
+        icon: const Icon(Icons.menu_book),
+        label: const Text('Subjects'),
+      ),
       body: BlocConsumer<ProfileBloc, ProfileState>(
         listenWhen: (prev, curr) => prev.status != curr.status,
         listener: (context, state) {

@@ -19,7 +19,7 @@ class _LoadingState extends State<Loading> {
   }
 
   void _initial() async {
-    Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
 
     final token = sl<SecureStroage>();
 
@@ -29,6 +29,10 @@ class _LoadingState extends State<Loading> {
     if (acc != null && ref != null) {
       Future.microtask(() {
         context.go(AppRoutes.home);
+      });
+    }else {
+      Future.microtask(() {
+        context.go(AppRoutes.login);
       });
     }
   }

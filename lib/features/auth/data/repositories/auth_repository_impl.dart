@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:login_subject_demo_bloc_arch/core/error/exceptions.dart';
 import 'package:login_subject_demo_bloc_arch/core/error/failure.dart';
-import 'package:login_subject_demo_bloc_arch/core/storage/secure_stroage.dart';
+import 'package:login_subject_demo_bloc_arch/core/storage/base_secure_storage.dart';
 import 'package:login_subject_demo_bloc_arch/features/auth/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:login_subject_demo_bloc_arch/features/auth/domain/entities/user.dart';
 import 'package:login_subject_demo_bloc_arch/features/auth/domain/repositories/auth_repository.dart';
@@ -12,9 +12,9 @@ class AuthRepositoryImpl implements AuthRepository {
     required this._remoteDataSource,
   });
 
-  final AuthRemoteDataSourceImpl _remoteDataSource;
+  final AuthRemoteDataSource _remoteDataSource;
 
-  final SecureStroage _storage;
+  final BaseSecureStorage _storage;
 
   @override
   Future<Either<Failure, User>> getUser() async {
